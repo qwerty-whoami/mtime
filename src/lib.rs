@@ -31,15 +31,13 @@ impl Date {
 
 impl MTime {
     pub fn new(time: u64) -> MTime {
-        MTime {
-            time
-        }
+        MTime { time }
     }
 
     pub fn get_count_days(&self) -> u64 {
         self.time / 86400
     }
-    
+
     pub fn get_count_years(&self) -> u64 {
         self.get_count_days() / 365
     }
@@ -47,39 +45,39 @@ impl MTime {
     pub fn is_leap_year(&self) -> bool {
         self.get_count_days() % (365 * 3 + 366) <= 366
     }
-    
+
     pub fn get_seconds(&self) -> u8 {
-        let seconds = self.time % 60; 
+        let seconds = self.time % 60;
         seconds as u8
     }
 
     pub fn get_visual_seconds(&self) -> String {
-        if self.get_seconds() < 10 {"0".to_string() + self.get_seconds().to_string().as_str()} else {self.get_seconds().to_string()} 
+        format!("{:02}", self.get_seconds())
     }
- 
+
     pub fn get_minutes(&self) -> u8 {
-        let minutes = (self.time / 60 ) % 60; 
+        let minutes = (self.time / 60) % 60;
         minutes as u8
     }
- 
+
     pub fn get_visual_minutes(&self) -> String {
-        if self.get_minutes() < 10 {"0".to_string() + self.get_minutes().to_string().as_str()} else {self.get_minutes().to_string()} 
+        format!("{:02}", self.get_minutes())
     }
-    
+
     pub fn get_hours(&self) -> u8 {
-        let hours = (self.time / 3600) % 24; 
+        let hours = (self.time / 3600) % 24;
         hours as u8
     }
 
     pub fn get_visual_hours(&self) -> String {
-        if self.get_hours() < 10 {"0".to_string() + self.get_hours().to_string().as_str()} else {self.get_hours().to_string()} 
+        format!("{:02}", self.get_hours())
     }
 
     pub fn get_day(&self) -> u8 {
         let mut days = self.get_count_days();
         let mut month_array: [u64; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let mut i: usize = 0;
-        while month_array[i]<days {
+        while month_array[i] < days {
             if self.is_leap_year() && i == 0 {
                 month_array[1] += 1;
             }
@@ -89,18 +87,22 @@ impl MTime {
                 i = 0;
             }
         }
-        if days==0 {(days+1) as u8} else {days as u8}
+        if days == 0 {
+            (days + 1) as u8
+        } else {
+            days as u8
+        }
     }
-    
+
     pub fn get_visual_day(&self) -> String {
-        if self.get_day() < 10 {"0".to_string() + self.get_day().to_string().as_str()} else {self.get_day().to_string()} 
+        format!("{:02}", self.get_day())
     }
 
     pub fn get_month(&self) -> u8 {
         let mut days = self.get_count_days();
         let mut month_array: [u64; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let mut i: usize = 0;
-        while month_array[i]< days {
+        while month_array[i] < days {
             if self.is_leap_year() && i == 0 {
                 month_array[1] += 1;
             }
@@ -110,22 +112,32 @@ impl MTime {
                 i = 0;
             }
         }
-        (i+1) as u8
+        (i + 1) as u8
     }
 
     pub fn get_visual_month(&self) -> String {
-        if self.get_month() < 10 {"0".to_string() + self.get_month().to_string().as_str()} else {self.get_month().to_string()} 
+        format!("{:02}", self.get_month())
     }
 
     pub fn get_month_name(&self) -> &str {
         const MONTHS: [&str; 12] = [
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
         ];
         let mut days = self.get_count_days();
         let mut month_array: [u64; 12] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let mut i: usize = 0;
-        while month_array[i]< days {
+        while month_array[i] < days {
             if self.is_leap_year() && i == 0 {
                 month_array[1] += 1;
             }
