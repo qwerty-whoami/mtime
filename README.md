@@ -59,6 +59,6 @@ println!("Seconds: {}", example.get_visual_seconds());
 ```rust
 // Exmaple work with Date
 let example = mtime::Mtime::new(1234); 
-let example_date = exmaple.get_date(); 
+let example_date = example.get_date(); 
 println!("{}", example_date.format("%h:%m:%s %D.%M.%Y")); 
 ```
